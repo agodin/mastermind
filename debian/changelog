@@ -1,3 +1,9 @@
+mastermind (2.25.37-col) trusty; urgency=medium
+
+  * Fixed miss of job
+
+ -- Vladimir Nikulichev <saturnus@yandex-team.ru>  Wed, 24 Nov 2015 18:15:07 +0300
+
 mastermind (2.25.36-col) trusty; urgency=medium
 
   * Fixed snapshot for backends and filesystems
