@@ -151,22 +151,34 @@ FS & Node::get_fs(uint64_t fsid)
 
 void Node::handle_backend(const BackendStat & new_stat)
 {
+    BH_LOG(app::logger(), DNET_LOG_DEBUG,
+            "Node: Handle backend %s/%lu", m_key, new_stat.backend_id);
+
     // skip zero group ids
-    if (!new_stat.group)
+    if (!new_stat.group) {
+        BH_LOG(app::logger(), DNET_LOG_DEBUG, "Skipping backend with zero group id");
         return;
+    }
 
     // iterator will be used below as insertion hint
     auto it = m_backends.lower_bound(new_stat.backend_id);
 
     bool found = it != m_backends.end() && it->first == int(new_stat.backend_id);
-    if (!found && !new_stat.state)
+    if (!found && !new_stat.state) {
+        BH_LOG(app::logger(), DNET_LOG_DEBUG,
+                "Skipping backend in state %lu", new_stat.state);
         return;
+    }
 
     uint64_t old_fsid = 0;
     if (found) {
         old_fsid = it->second.get_stat().fsid;
+
+        BH_LOG(app::logger(), DNET_LOG_DEBUG, "Backend is found, updating filesystem %lu", old_fsid);
         it->second.update(new_stat);
     } else {
+        BH_LOG(app::logger(), DNET_LOG_DEBUG, "New backend");
+
         it = m_backends.insert(it, std::make_pair(new_stat.backend_id, Backend(*this)));
         it->second.init(new_stat);
         m_new_backends.push_back(it->second);

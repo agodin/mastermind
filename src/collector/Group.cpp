@@ -130,21 +130,27 @@ const Job & Group::get_active_job() const
 
 void Group::add_backend(Backend & backend)
 {
+    BH_LOG(app::logger(), DNET_LOG_DEBUG, "Group %d: Add backend %s", m_id, backend.get_key());
     m_backends.insert(backend);
 }
 
 void Group::remove_backend(Backend & backend)
 {
+    BH_LOG(app::logger(), DNET_LOG_DEBUG, "Group %d: Remove backend %s", m_id, backend.get_key());
     m_backends.erase(backend);
 }
 
 void Group::apply(const GroupHistoryEntry & entry)
 {
+    BH_LOG(app::logger(), DNET_LOG_DEBUG,
+            "Group %d: Applying history entry with timestamp %f", m_id, entry.get_timestamp());
+
     auto & backends = entry.get_backends();
     bool changed = false;
     for (Backends::iterator it = m_backends.begin(); it != m_backends.end();) {
         const std::string & key = it->get().get_key();
         if (backends.find(key) == backends.end()) {
+            BH_LOG(app::logger(), DNET_LOG_DEBUG, "Removing backend %s", key);
             m_backends.erase(it++);
             changed = true;
         } else {
