@@ -1,3 +1,9 @@
+mastermind (2.25.39-col) trusty; urgency=medium
+
+  * Fixed bug when old history entries affected group's current state.
+
+ -- Vladimir Nikulichev <saturnus@yandex-team.ru>  Thu, 26 Nov 2015 14:53:07 +0300
+
 mastermind (2.25.38-col) trusty; urgency=medium
 
   * Fixed couple check
