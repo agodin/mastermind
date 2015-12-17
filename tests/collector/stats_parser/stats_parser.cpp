@@ -35,144 +35,79 @@ struct TestNodeStat : public NodeStat
         ts_sec = 1449495977;
         ts_usec = 514751;
         la1 = 11;
-        tx_bytes = 991; // both tx_bytes and rx_bytes must be > 100
+        tx_bytes = 991;
         rx_bytes = 997;
     }
 };
 
-struct TestBackendStat1 : public BackendStat
+struct TestBackendStat : public BackendStat
 {
-    TestBackendStat1()
+    TestBackendStat(uint64_t id)
     {
-        backend_id = 11;
+        backend_id = id;
 
         // dstat
-        read_ios = 11047;
-        write_ios = 153719;
-        read_ticks = 28219;
-        write_ticks = 756463;
-        io_ticks = 779573;
-        read_sectors = 1508509;
-        dstat_error = 3;
+        read_ios = 11047 + id;
+        write_ios = 153719 + id;
+        read_ticks = 28219 + id;
+        write_ticks = 756463 + id;
+        io_ticks = 779573 + id;
+        read_sectors = 1508509 + id;
+        dstat_error = 3 + id;
 
         // vfs
-        fsid = 8323278684798404783;
-        vfs_blocks = 480682469;
-        vfs_bavail = 477906337;
-        vfs_bsize = 4099;
-        vfs_error = 5;
+        fsid = 8323278684798404783 + id;
+        vfs_blocks = 480682469 + id;
+        vfs_bavail = 477906337 + id;
+        vfs_bsize = 4099 + id;
+        vfs_error = 5 + id;
 
         // summary_stats
-        base_size = 2333049977;
-        records_total = 29633;
-        records_removed = 2521;
-        records_removed_size = 258561179;
-        want_defrag = 2;
+        base_size = 2333049977 + id;
+        records_total = 29633 + id;
+        records_removed = 2521 + id;
+        records_removed_size = 258561179 + id;
+        want_defrag = 2 + id;
 
         // config
-        blob_size_limit = 5368709131;
-        blob_size = 53687091251;
-        group = 571;
-        data_path = "/data/path/3";
-        file_path = "/file/path/5";
+        blob_size_limit = 5368709131 + id;
+        blob_size = 53687091251 + id;
+        group = 571 + id;
+        data_path = "/data/path/3" + std::to_string(id);
+        file_path = "/file/path/5" + std::to_string(id);
 
         // base_stats
-        max_blob_base_size = 2333049977;
+        max_blob_base_size = 2333049977 + id;
 
         // status
-        state = 2;
-        defrag_state = 337;
+        state = 2 + id;
+        defrag_state = 337 + id;
         read_only = 1;
-        last_start_ts_sec = 1449503129;
-        last_start_ts_usec = 424961;
+        last_start_ts_sec = 1449503129 + id;
+        last_start_ts_usec = 424961 + id;
 
-        // commands (must be > 200)
-        ell_cache_write_size = 29053811;
-        ell_cache_write_time = 23011;
-        ell_disk_write_size = 32427323;
-        ell_disk_write_time = 19051;
-        ell_cache_read_size = 106845253;
-        ell_cache_read_time = 25523;
-        ell_disk_read_size = 4116967;
-        ell_disk_read_time = 31957;
+        // commands
+        ell_cache_write_size = 29053811 + id;
+        ell_cache_write_time = 23011 + id;
+        ell_disk_write_size = 32427323 + id;
+        ell_disk_write_time = 19051 + id;
+        ell_cache_read_size = 106845253 + id;
+        ell_cache_read_time = 25523 + id;
+        ell_disk_read_size = 4116967 + id;
+        ell_disk_read_time = 31957 + id;
 
         // io queues
-        io_blocking_size = 499;
-        io_nonblocking_size = 743;
+        io_blocking_size = 499 + id;
+        io_nonblocking_size = 743 + id;
 
         // stats
-        stat_commit_rofs_errors = 24749;
+        stat_commit_rofs_errors = 24749 + id;
     }
 };
 
-struct TestBackendStat2 : public BackendStat
-{
-    TestBackendStat2()
-    {
-        backend_id = 20;
-
-        // dstat
-        read_ios = 27447;
-        write_ios = 8304;
-        read_ticks = 12762;
-        write_ticks = 744;
-        io_ticks = 21236;
-        read_sectors = 15551;
-        dstat_error = 3;
-
-        // vfs
-        fsid = 8323278684798404738;
-        vfs_blocks = 480682466;
-        vfs_bavail = 477906313;
-        vfs_bsize = 4096;
-        vfs_error = 5;
-
-        // summary_stats
-        base_size = 2333049958;
-        records_total = 29630;
-        records_removed = 2511;
-        records_removed_size = 258561169;
-        want_defrag = 1;
-
-        // config
-        blob_size_limit = 5368709120;
-        blob_size = 53687091200;
-        group = 571;
-        data_path = "/data/path/1";
-        file_path = "/file/path/1";
-
-        // base_stats
-        max_blob_base_size = 2333049958;
-
-        // status
-        state = 1;
-        defrag_state = 337;
-        read_only = 1;
-        last_start_ts_sec = 1449503128;
-        last_start_ts_usec = 11514;
-
-        // commands (must be > 200)
-        ell_cache_write_size = 29053805;
-        ell_cache_write_time = 23011;
-        ell_disk_write_size = 32427323;
-        ell_disk_write_time = 19050;
-        ell_cache_read_size = 106845246;
-        ell_cache_read_time = 25482;
-        ell_disk_read_size = 4116932;
-        ell_disk_read_time = 31917;
-
-        // io queues
-        io_blocking_size = 499;
-        io_nonblocking_size = 743;
-
-        // stats
-        stat_commit_rofs_errors = 24737;
-    }
-};
-
-TestNodeStat s_node_stat;
-TestBackendStat1 s_bstat_1;
-TestBackendStat2 s_bstat_2;
+const TestNodeStat s_node_stat;
+const TestBackendStat s_bstat_1(11);
+const TestBackendStat s_bstat_2(20);
 
 void print_node_json(rapidjson::Writer<rapidjson::StringBuffer> & writer)
 {
@@ -247,40 +182,12 @@ void print_node_json(rapidjson::Writer<rapidjson::StringBuffer> & writer)
                     writer.Key("receive");
                     writer.StartObject();
                         writer.Key("bytes");
-                        writer.Uint64(s_node_stat.rx_bytes - 100);
+                        writer.Uint64(s_node_stat.rx_bytes);
                     writer.EndObject();
                     writer.Key("transmit");
                     writer.StartObject();
                         writer.Key("bytes");
-                        writer.Uint64(s_node_stat.tx_bytes - 100);
-                    writer.EndObject();
-                writer.EndObject();
-
-                writer.Key("eth1");
-                writer.StartObject();
-                    writer.Key("receive");
-                    writer.StartObject();
-                        writer.Key("bytes");
-                        writer.Uint64(100);
-                    writer.EndObject();
-                    writer.Key("transmit");
-                    writer.StartObject();
-                        writer.Key("bytes");
-                        writer.Uint64(100);
-                    writer.EndObject();
-                writer.EndObject();
-
-                writer.Key("lo");
-                writer.StartObject();
-                    writer.Key("receive");
-                    writer.StartObject();
-                        writer.Key("bytes");
-                        writer.Uint64(s_node_stat.rx_bytes * 41);
-                    writer.EndObject();
-                    writer.Key("transmit");
-                    writer.StartObject();
-                        writer.Key("bytes");
-                        writer.Uint64(s_node_stat.tx_bytes * 43);
+                        writer.Uint64(s_node_stat.tx_bytes);
                     writer.EndObject();
                 writer.EndObject();
             writer.EndObject();
@@ -429,17 +336,7 @@ void print_backend_json(rapidjson::Writer<rapidjson::StringBuffer> & writer,
                 writer.Key("data-0.0");
                 writer.StartObject();
                     writer.Key("base_size");
-                    writer.Uint(stat.max_blob_base_size / 3);
-                writer.EndObject();
-                writer.Key("data-1.0");
-                writer.StartObject();
-                    writer.Key("base_size");
                     writer.Uint(stat.max_blob_base_size);
-                writer.EndObject();
-                writer.Key("data-2.0");
-                writer.StartObject();
-                    writer.Key("base_size");
-                    writer.Uint(stat.max_blob_base_size / 2);
                 writer.EndObject();
             writer.EndObject();
             writer.Key("config");
@@ -501,43 +398,6 @@ void print_backend_json(rapidjson::Writer<rapidjson::StringBuffer> & writer,
         writer.EndObject();
         writer.Key("commands");
         writer.StartObject();
-            writer.Key("LOOKUP");
-            writer.StartObject();
-                writer.Key("cache");
-                writer.StartObject();
-                    writer.Key("internal");
-                    writer.StartObject();
-                        writer.Key("size");
-                        writer.Uint(stat.ell_cache_read_size - 200);
-                        writer.Key("time");
-                        writer.Uint(stat.ell_cache_read_time - 190);
-                    writer.EndObject();
-                    writer.Key("outside");
-                    writer.StartObject();
-                        writer.Key("size");
-                        writer.Uint(120);
-                        writer.Key("time");
-                        writer.Uint(130);
-                    writer.EndObject();
-                writer.EndObject();
-                writer.Key("disk");
-                writer.StartObject();
-                    writer.Key("internal");
-                    writer.StartObject();
-                        writer.Key("size");
-                        writer.Uint(stat.ell_disk_read_size - 180);
-                        writer.Key("time");
-                        writer.Uint(stat.ell_disk_read_time - 170);
-                    writer.EndObject();
-                    writer.Key("outside");
-                    writer.StartObject();
-                        writer.Key("size");
-                        writer.Uint(105);
-                        writer.Key("time");
-                        writer.Uint(115);
-                    writer.EndObject();
-                writer.EndObject();
-            writer.EndObject();
             writer.Key("READ");
             writer.StartObject();
                 writer.Key("cache");
@@ -545,33 +405,19 @@ void print_backend_json(rapidjson::Writer<rapidjson::StringBuffer> & writer,
                     writer.Key("internal");
                     writer.StartObject();
                         writer.Key("size");
-                        writer.Uint(33);
+                        writer.Uint(stat.ell_cache_read_size);
                         writer.Key("time");
-                        writer.Uint(34);
-                    writer.EndObject();
-                    writer.Key("outside");
-                    writer.StartObject();
-                        writer.Key("size");
-                        writer.Uint(47);
-                        writer.Key("time");
-                        writer.Uint(26);
+                        writer.Uint(stat.ell_cache_read_time);
                     writer.EndObject();
                 writer.EndObject();
                 writer.Key("disk");
                 writer.StartObject();
-                    writer.Key("internal");
-                    writer.StartObject();
-                        writer.Key("size");
-                        writer.Uint(11);
-                        writer.Key("time");
-                        writer.Uint(23);
-                    writer.EndObject();
                     writer.Key("outside");
                     writer.StartObject();
                         writer.Key("size");
-                        writer.Uint(64);
+                        writer.Uint(stat.ell_disk_read_size);
                         writer.Key("time");
-                        writer.Uint(32);
+                        writer.Uint(stat.ell_disk_read_time);
                     writer.EndObject();
                 writer.EndObject();
             writer.EndObject();
@@ -579,19 +425,12 @@ void print_backend_json(rapidjson::Writer<rapidjson::StringBuffer> & writer,
             writer.StartObject();
                 writer.Key("cache");
                 writer.StartObject();
-                    writer.Key("internal");
-                    writer.StartObject();
-                        writer.Key("size");
-                        writer.Uint(stat.ell_cache_write_size - 100);
-                        writer.Key("time");
-                        writer.Uint(stat.ell_cache_write_time - 90);
-                    writer.EndObject();
                     writer.Key("outside");
                     writer.StartObject();
                         writer.Key("size");
-                        writer.Uint(100);
+                        writer.Uint(stat.ell_cache_write_size);
                         writer.Key("time");
-                        writer.Uint(90);
+                        writer.Uint(stat.ell_cache_write_time);
                     writer.EndObject();
                 writer.EndObject();
                 writer.Key("disk");
@@ -599,16 +438,9 @@ void print_backend_json(rapidjson::Writer<rapidjson::StringBuffer> & writer,
                     writer.Key("internal");
                     writer.StartObject();
                         writer.Key("size");
-                        writer.Uint(stat.ell_disk_write_size - 80);
+                        writer.Uint(stat.ell_disk_write_size);
                         writer.Key("time");
-                        writer.Uint(stat.ell_disk_write_time - 70);
-                    writer.EndObject();
-                    writer.Key("outside");
-                    writer.StartObject();
-                        writer.Key("size");
-                        writer.Uint(80);
-                        writer.Key("time");
-                        writer.Uint(70);
+                        writer.Uint(stat.ell_disk_write_time);
                     writer.EndObject();
                 writer.EndObject();
             writer.EndObject();
@@ -777,4 +609,216 @@ TEST(StatsParserTest, ParseFull)
 
     check_backend_stat(bstats[0], s_bstat_1);
     check_backend_stat(bstats[1], s_bstat_2);
+}
+
+TEST(StatsParserTest, NetInterfaces)
+{
+    // This test verifies if NodeStat members rx_bytes and tx_bytes are
+    // calculated correctly. Loopback counters must be ignored.
+
+    const char *json = R"END(
+    {
+         "procfs": {
+             "net": {
+                 "net_interfaces": {
+                     "eth0": {
+                         "receive": {
+                             "bytes": 710009597
+                         },
+                         "transmit": {
+                             "bytes": 38043292
+                         }
+                     },
+                     "eth1": {
+                         "receive": {
+                             "bytes": 15335807301
+                         },
+                         "transmit": {
+                             "bytes": 10702349567
+                         }
+                     },
+                     "lo": {
+                         "receive": {
+                             "bytes": 5980567201
+                         },
+                         "transmit": {
+                             "bytes": 5980567201
+                         }
+                     }
+                 }
+             }
+         }
+    }
+    )END";
+
+    StatsParser parser;
+
+    rapidjson::Reader reader;
+    rapidjson::StringStream ss(json);
+    reader.Parse(ss, parser);
+
+    ASSERT_TRUE(parser.good());
+
+    const NodeStat & stat = parser.get_node_stat();
+    EXPECT_EQ(16045816898ULL, stat.rx_bytes);
+    EXPECT_EQ(10740392859ULL, stat.tx_bytes);
+}
+
+TEST(StatsParserTest, MaxBlobBaseSize)
+{
+    // This test verifies calculation of BackendStat::max_blob_base_size.
+    // It must be a maximum of backends/<id>/backend/base_stats/<filename>/base_size.
+
+    const char *json = R"END(
+    {
+        "backends": {
+            "7949": {
+                "backend_id": 7949,
+                "backend": {
+                    "base_stats": {
+                        "data-0.0": {
+                            "base_size": 2503
+                        },
+                        "data-1.0": {
+                            "base_size": 7011
+                        },
+                        "data-2.0": {
+                            "base_size": 5101
+                        }
+                    }
+                }
+            }
+        }
+    }
+    )END";
+
+    StatsParser parser;
+
+    rapidjson::Reader reader;
+    rapidjson::StringStream ss(json);
+    reader.Parse(ss, parser);
+
+    ASSERT_TRUE(parser.good());
+
+    const std::vector<BackendStat> & stats = parser.get_backend_stats();
+    ASSERT_EQ(1, stats.size());
+
+    const BackendStat & stat = stats[0];
+    EXPECT_EQ(7949, stat.backend_id);
+    EXPECT_EQ(7011, stat.max_blob_base_size);
+}
+
+TEST(StatsParserTest, Commands)
+{
+    // This test verifies parsing of commands statistic.
+    // The following BackendStat members are checked up:
+    //
+    // ell_cache_write_size
+    // ell_cache_write_time
+    // ell_disk_write_size
+    // ell_disk_write_time
+    // ell_cache_read_size
+    // ell_cache_read_time
+    // ell_disk_read_size
+    // ell_disk_read_time
+
+    const char *json = R"END(
+    {
+        "backends": {
+            "13687": {
+                "backend_id": 13687,
+                "commands": {
+                    "LOOKUP": {
+                        "cache": {
+                            "internal": {
+                                "size": 23569810725173,
+                                "time": 984787292977
+                            },
+                            "outside": {
+                                "size": 28971867612377,
+                                "time": 101891706627377
+                            }
+                        },
+                        "disk": {
+                            "internal": {
+                                "size": 312502641817337,
+                                "time": 2090731958971
+                            },
+                            "outside": {
+                                "size": 1144666813351,
+                                "time": 251893066721771
+                            }
+                        }
+                    },
+                    "READ": {
+                        "cache": {
+                            "internal": {
+                                "size": 15521512425161,
+                                "time": 22543623921839
+                            },
+                            "outside": {
+                                "size": 140743022331809,
+                                "time": 293701205228491
+                            }
+                        },
+                        "disk": {
+                            "internal": {
+                                "size": 296541659217403,
+                                "time": 87071764919387
+                            },
+                            "outside": {
+                                "size": 16480592113031,
+                                "time": 19792174930169
+                            }
+                        }
+                    },
+                    "WRITE": {
+                        "cache": {
+                            "internal": {
+                                "size": 307251808920601,
+                                "time": 30006316647227
+                            },
+                            "outside": {
+                                "size": 314502224221261,
+                                "time": 23647697221787
+                            }
+                        },
+                        "disk": {
+                            "internal": {
+                                "size": 6127806619027,
+                                "time": 169951005011401
+                            },
+                            "outside": {
+                                "size": 6416988325967,
+                                "time": 9534169012801
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    )END";
+
+    StatsParser parser;
+
+    rapidjson::Reader reader;
+    rapidjson::StringStream ss(json);
+    reader.Parse(ss, parser);
+
+    ASSERT_TRUE(parser.good());
+
+    const std::vector<BackendStat> & stats = parser.get_backend_stats();
+    ASSERT_EQ(1, stats.size());
+
+    const BackendStat & stat = stats[0];
+    EXPECT_EQ(13687, stat.backend_id);
+    EXPECT_EQ(621754033141862ULL, stat.ell_cache_write_size);
+    EXPECT_EQ(53654013869014ULL, stat.ell_cache_write_time);
+    EXPECT_EQ(12544794944994ULL, stat.ell_disk_write_size);
+    EXPECT_EQ(179485174024202ULL, stat.ell_disk_write_time);
+    EXPECT_EQ(208806213094520ULL, stat.ell_cache_read_size);
+    EXPECT_EQ(419121323070684ULL, stat.ell_cache_read_time);
+    EXPECT_EQ(626669559961122ULL, stat.ell_disk_read_size);
+    EXPECT_EQ(360847738530298ULL, stat.ell_disk_read_time);
 }
