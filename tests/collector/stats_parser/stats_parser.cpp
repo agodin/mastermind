@@ -515,7 +515,7 @@ void print_stats_json(rapidjson::Writer<rapidjson::StringBuffer> & writer)
     writer.EndObject();
 }
 
-void check_backend_stat(const BackendStat & stat, const BackendStat & reference)
+void check_backend_stat(const BackendStat & reference, const BackendStat & stat)
 {
     EXPECT_EQ(reference.backend_id, stat.backend_id);
     EXPECT_EQ(reference.read_ios, stat.read_ios);
@@ -607,8 +607,8 @@ TEST(StatsParserTest, ParseFull)
     bstats[0].stat_commit_rofs_errors = rofs_err[bstats[0].backend_id];
     bstats[1].stat_commit_rofs_errors = rofs_err[bstats[1].backend_id];
 
-    check_backend_stat(bstats[0], s_bstat_1);
-    check_backend_stat(bstats[1], s_bstat_2);
+    check_backend_stat(s_bstat_1, bstats[0]);
+    check_backend_stat(s_bstat_2, bstats[1]);
 }
 
 TEST(StatsParserTest, NetInterfaces)
